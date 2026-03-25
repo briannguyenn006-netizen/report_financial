@@ -77,18 +77,18 @@ with col_left:
 
 with col_right:
     st.subheader("[02] OPERATIONS_EFFICIENCY")
-    st.caption("PEAK_HOUR_DENSITY_3D optimization (Deep Terrain Edition)")
+    st.caption("PEAK_HOUR_DENSITY_3D optimization (Smooth Peaks Edition)")
     
-    # --- ĐÃ FIX: TẠO QUẦN THỂ NÚI NHẤP NHÔ (DEEP TERRAIN) ---
-    x = np.linspace(-3, 3, 100) # Tăng độ phân giải lên 100 cho mịn
-    y = np.linspace(-3, 3, 100)
+    # --- ĐÃ FIX: TẠO QUẦN THỂ NÚI NHẤP NHÔ NHƯNG MƯỢT MÀ (SMOOTH TERRAIN) ---
+    x = np.linspace(-3, 3, 80) # Tăng độ phân giải lên 80 cho mịn
+    y = np.linspace(-3, 3, 80)
     X, Y = np.meshgrid(x, y)
     
-    # Hàm toán học phức tạp để tạo nhiều đỉnh núi đan xen (Gia-Gai)
-    # Kết hợp nhiều hàm exp để tạo quần thể
+    # Hàm toán học Gaussian mượt mà để tạo nhiều đỉnh núi (Gia-Gai)
+    # Kết hợp nhiều hàm exp để tạo quần thể uốn lượn
     Z = (np.exp(-(X**2 + Y**2)) + 
-         0.8 * np.exp(-((X-1.5)**2 + (Y-1.5)**2)/1.5) + 
-         0.8 * np.exp(-((X+1.5)**2 + (Y+1.5)**2)/1.5) +
+         0.8 * np.exp(-((X-1.5)**2 + (Y-1.5)**2)/1.2) + 
+         0.8 * np.exp(-((X+1.5)**2 + (Y+1.5)**2)/1.2) +
          0.6 * np.exp(-((X-2)**2 + (Y+2)**2)) +
          0.6 * np.exp(-((X+2)**2 + (Y-2)**2)))
     
