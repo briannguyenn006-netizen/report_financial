@@ -113,4 +113,4 @@ with col_right:
     )
     st.plotly_chart(fig_3d, use_container_width=True)
 
-st.warning(f"💡 **STRATEGY:** Cần đẩy mạnh Upsize và Combo để tối ưu hóa Avg Order Value trong tháng 4.")
+st.warning(f" **STRATEGY:** Cần đẩy mạnh Upsize và Combo để tối ưu hóa Avg Order Value trong tháng 4.")
