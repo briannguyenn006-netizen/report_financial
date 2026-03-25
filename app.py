@@ -46,7 +46,7 @@ with st.sidebar:
     st.caption("M4 Optimized // BNM Finance Lab")
 
 # --- 4. GIAO DIỆN CHÍNH (COMMAND CENTER) ---
-st.header("BROKENOMORE (BNM) FINANCIAL COMMAND CENTER")
+st.header("FINANCIAL REPORT")
 st.caption("Coffee Division Operations // Strategy Optimization")
 
 # Row 1: Top Metrics
