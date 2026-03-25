@@ -96,7 +96,7 @@ with col_left:
     st.plotly_chart(fig_line, use_container_width=True)
 
 with col_right:
-    st.subheader("[02] PEAK_HOUR_DENSITY_3D")
+    st.subheader("PEAK HOUR 3D")
     # Biểu đồ 3D gai góc có Grid
     x = np.linspace(0, 24, 50); y = np.linspace(0, 7, 50)
     X, Y = np.meshgrid(x, y)
