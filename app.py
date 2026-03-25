@@ -39,7 +39,7 @@ with st.sidebar:
     st.markdown("# Excel Data")
     st.write("---")
     
-    st.subheader("💳 Operating Fund Status")
+    st.subheader("Operating Fund Status")
     fig_fund = go.Figure(go.Pie(
         labels=['Remaining', 'Used'],
         values=[current_fund, total_budget - current_fund],
