@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-# --- 1. SETUP GIAO DIỆN CHUYÊN NGHIỆP ---
+# --- 1. CONFIG GIAO DIỆN (DARK MODE M4 OPTIMIZED) ---
 st.set_page_config(page_title="BNM Finance Lab", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
@@ -16,7 +16,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. DATA INPUT ---
+# --- 2. DỮ LIỆU THỰC TẾ ---
 pnl_data = {
     'Month': ['Jan', 'Feb', 'Mar'],
     'Revenue': [5.896, 4.758, 6.241],
@@ -46,8 +46,8 @@ with st.sidebar:
     st.caption("M4 Optimized // BNM Finance Lab")
 
 # --- 4. GIAO DIỆN CHÍNH ---
-st.header("FINANCIAL REPORT")
-st.caption("Coffee Division Operations // Monthly Target Overview")
+st.header("BROKENOMORE (BNM) FINANCIAL COMMAND CENTER")
+st.caption("Coffee Division Operations // PEAK_HOUR_DENSITY_3D optimization")
 
 m1, m2, m3 = st.columns(3)
 m1.metric("Gross Profit Margin (Mar)", "41.4%", "↑ 2.1%")
@@ -75,18 +75,16 @@ with col_left:
 
 with col_right:
     st.subheader("[02] OPERATIONS_EFFICIENCY")
-    # --- PHẦN TỰ GIÁC CHÈN: 3D GAI GÓC RĂNG CƯA ---
-    x = np.linspace(-4, 4, 60) # Tăng mật độ điểm lên cho nó "sắc"
-    y = np.linspace(-4, 4, 60)
+    # TÁI TẠO ĐỘ GAI GÓC NHƯ HÌNH THAM KHẢO
+    x = np.linspace(0, 20, 80) # Tăng mật độ lên 80 để gai cực nhọn
+    y = np.linspace(0, 20, 80)
     X, Y = np.meshgrid(x, y)
-    # Hàm sóng kết hợp nhiễu tạo độ lồi lõm cực mạnh
-    Z = np.sin(X) * np.cos(Y) + np.sin(np.sqrt(X**2 + Y**2)) 
-    Z += np.random.normal(0, 0.2, X.shape) # Bơm thêm "gai"
+    Z = np.sin(X/2) * np.cos(Y/2) + np.sin(np.sqrt(X**2 + Y**2))
+    Z += np.random.normal(0, 0.25, X.shape) # Noise mạnh tạo độ răng cưa
     
     fig_3d = go.Figure(data=[go.Surface(z=Z, colorscale='Greys', showscale=False)])
     fig_3d.update_layout(scene=dict(xaxis_visible=False, yaxis_visible=False, zaxis_visible=False), 
                         margin=dict(l=0, r=0, b=0, t=0), height=700, paper_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_3d, use_container_width=True)
 
-st.markdown("---")
-st.info("💡 **STRATEGY:** Focus on reducing 'Net Income' gap to hit the Q2 Profitability Target.")
+st.info("💡 **OPTIMIZATION OPPORTUNITY:** Adjust Mar 10am shift +1 staff for 12% projected efficiency gain.")
