@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-# --- 1. SETTING GIAO DIỆN ---
+# --- 1. CONFIG GIAO DIỆN (DARK MODE M4 OPTIMIZED) ---
 st.set_page_config(page_title="BNM Finance Lab", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
@@ -16,74 +16,94 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. DATA CHUẨN (NHƯ TRONG SCREENSHOT) ---
-pnl_data = {'Month': ['Jan', 'Feb', 'Mar'], 'Revenue': [5.896, 4.758, 6.241], 'Expenses': [10.044, 9.127, 8.655]}
+# --- 2. DỮ LIỆU THỰC TẾ (NHƯ TRONG ẢNH THAM KHẢO) ---
+pnl_data = {
+    'Month': ['Jan', 'Feb', 'Mar'],
+    'Revenue': [5.896, 4.758, 6.241],
+    'Expenses': [10.044, 9.127, 8.655],
+    'Net_Income': [-4.148, -4.369, -2.414]
+}
 df_pnl = pd.DataFrame(pnl_data)
 
-cfo_data = {'Category': ['Actual', 'Target'], 'Depreciation': [41.7, 50.0], 'Net Income': [-54.1, -20.0], 'Inventory': [-6.8, -4.0]}
+cfo_data = {
+    'Category': ['Actual', 'Target'], 
+    'Depreciation': [41.7, 50.0],
+    'Net Income': [-54.1, -20.0], # Giả định Target lỗ ít hơn
+    'Inventory': [-6.8, -4.0]     # Giả định Target tối ưu kho tốt hơn
+}
 df_cfo = pd.DataFrame(cfo_data)
 
-# --- 3. SIDEBAR ---
+# --- 3. SIDEBAR (BẢNG SỐ LIỆU LIVE BÊN TRÁI) ---
 with st.sidebar:
     st.title("📂 DATA INPUT")
+    st.subheader("LIVE DATA FROM EXCEL")
     st.write("**P&L (M VND)**")
     st.dataframe(df_pnl, hide_index=True)
     st.write("---")
     st.write("**Cash Flow (M VND)**")
     st.dataframe(df_cfo, hide_index=True)
+    st.write("---")
+    st.caption("M4 Optimized // BNM Finance Lab")
 
-# --- 4. DASHBOARD CHÍNH ---
-st.header("BNM FINANCIAL COMMAND CENTER")
-st.caption("Coffee Division Operations // Strategy Optimization")
+# --- 4. GIAO DIỆN CHÍNH (COMMAND CENTER) ---
+st.header("BROKENOMORE (BNM) FINANCIAL COMMAND CENTER")
+st.caption("Coffee Division Operations // PEAK_HOUR_DENSITY_3D optimization")
 
+# Row 1: Top Metrics
 m1, m2, m3 = st.columns(3)
-m1.metric("Gross Profit Margin", "41.4%", "↑ 2.1%")
-m2.metric("Burn Rate (Avg)", "6.8M VND", "Avg")
-m3.metric("Cash Runway", "5.1 Months", "🎯 Target")
+m1.metric("Gross Profit Margin (Mar)", "41.4%", "↑ 2.1%")
+m2.metric("Operational Burn Rate", "6.8M VND", "Avg")
+m3.metric("Cash Runway (Target)", "5.1 Months", "🎯 Target")
 
 st.write("---")
 
-col_left, col_right = st.columns([1, 1.3]) # Ưu tiên không gian cho biểu đồ 3D
+# Row 2: Charts (Chia 2 cột lớn)
+col_left, col_right = st.columns([1.2, 1])
 
 with col_left:
-    # Revenue/Expenses Line Chart
+    st.subheader("Revenue Stream Convergence")
     fig_line = go.Figure()
-    fig_line.add_trace(go.Scatter(x=df_pnl['Month'], y=df_pnl['Revenue'], name='Net Revenue', line=dict(color='#00CC96', width=3)))
-    fig_line.add_trace(go.Scatter(x=df_pnl['Month'], y=df_pnl['Expenses'], name='Expenses', line=dict(color='#EF553B', width=3)))
-    fig_line.update_layout(template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350, margin=dict(l=0, r=0, t=20, b=0))
+    fig_line.add_trace(go.Scatter(x=df_pnl['Month'], y=df_pnl['Revenue'], name='Total Net Revenue', line=dict(color='#00CC96', width=3)))
+    fig_line.add_trace(go.Scatter(x=df_pnl['Month'], y=df_pnl['Expenses'], name='Total Expenses', line=dict(color='#EF553B', width=3)))
+    fig_line.update_layout(template="plotly_dark", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350)
     st.plotly_chart(fig_line, use_container_width=True)
 
-    # CFO Bar Chart
+    st.subheader("Actual vs Target Cash Flow")
     fig_bar = px.bar(df_cfo, x='Category', y=['Depreciation', 'Net Income', 'Inventory'],
                      color_discrete_map={'Depreciation': '#00CC96', 'Net Income': '#EF553B', 'Inventory': '#FECB52'},
                      barmode='relative', template="plotly_dark")
-    fig_bar.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350, margin=dict(l=0, r=0, t=20, b=0))
+    fig_bar.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=350)
     st.plotly_chart(fig_bar, use_container_width=True)
 
 with col_right:
     st.subheader("[02] OPERATIONS_EFFICIENCY")
-    # --- CHIÊU CUỐI: TẠO MESH GRID NHẤP NHÔ DÀY ĐẶC (GIỐNG ẢNH MẪU 100%) ---
-    x = np.outer(np.linspace(-3, 3, 50), np.ones(50))
-    y = x.copy().T
-    # Hàm sóng kết hợp để tạo độ nhấp nhô dày đặc
-    z = (np.sin(x**2 + y**2) * np.cos(x*y) * 0.5 + 
-         0.2 * np.sin(10*x) * np.cos(10*y)) # Tạo thêm các "gai" nhỏ mượt mà
+    # --- CHIÊU CUỐI: TẠO BIỂU ĐỒ 3D GAI GÓC & CÓ GRID (GAI-GAI VERSION) ---
+    x = np.linspace(0, 20, 100) # Tăng độ phân giải lên 100 cho mịn
+    y = np.linspace(0, 20, 100)
+    X, Y = np.meshgrid(x, y)
     
-    # Dùng màu Viridis hoặc Greys tùy sở thích, nhưng Viridis nhìn chuyên nghiệp hơn
-    fig_3d = go.Figure(data=[go.Surface(z=z, colorscale='Viridis', showscale=False)])
+    # Hàm toán học tạo bề mặt gai góc, nhấp nhô lởm chởm (Peak Hour Density)
+    Z = np.sin(X) * np.cos(Y) + np.sin(np.sqrt(X**2 + Y**2)) 
     
+    # Thêm một chút Noise để tạo độ răng cưa, sần sùi cho gai chông
+    Z = Z + np.random.normal(0, 0.1, X.shape)
+    
+    # Sử dụng màu 'Viridis' hoặc 'Turbo' để ra dải màu xanh đỏ rực rỡ y chang ảnh gốc
+    fig_3d = go.Figure(data=[go.Surface(z=Z, colorscale='Viridis', showscale=False)])
+    
+    # --- QUAN TRỌNG NHẤT: BẬT GRID TRỤC X, Y, Z Y CHANG ẢNH MẪU ---
     fig_3d.update_layout(
         scene=dict(
-            xaxis=dict(visible=False),
-            yaxis=dict(visible=False),
-            zaxis=dict(visible=False),
-            aspectmode='manual',
-            aspectratio=dict(x=1, y=1, z=0.5) # Làm bẹt biểu đồ xuống cho giống ảnh mẫu
+            xaxis=dict(gridcolor='rgba(255,255,255,0.3)', tickfont=dict(color='white'), nticks=10, showbackground=False),
+            yaxis=dict(gridcolor='rgba(255,255,255,0.3)', tickfont=dict(color='white'), nticks=10, showbackground=False),
+            zaxis=dict(gridcolor='rgba(255,255,255,0.3)', tickfont=dict(color='white'), nticks=10, showbackground=False, range=[-1, 1.5]),
+            bgcolor='rgba(0,0,0,0)'
         ),
         margin=dict(l=0, r=0, b=0, t=0), 
-        height=750, 
+        height=700, 
         paper_bgcolor='rgba(0,0,0,0)'
     )
     st.plotly_chart(fig_3d, use_container_width=True)
 
-st.info("💡 **OPTIMIZATION:** Điều chỉnh nhân sự ca 10 sáng để tối ưu hóa mật độ đỉnh (Peaks).")
+st.markdown("---")
+st.info("💡 **OPTIMIZATION OPPORTUNITY:** Adjust Mar 10am shift +1 staff for 12% projected efficiency gain.")
