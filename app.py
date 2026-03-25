@@ -14,9 +14,16 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. DATA (GIỮ NGUYÊN TỪ EXCEL CỦA SẾP) ---
-pnl_data = {'Month': ['Jan', 'Feb', 'Mar'], 'Revenue': [5.896, 4.758, 6.241], 'Expenses': [10.044, 9.127, 8.655]}
+# --- 2. DATA (DỰA TRÊN DỮ LIỆU P&L VÀ CASH FLOW CỦA SẾP) ---
+# Dữ liệu từ ảnh Screenshot 2026-03-26 at 04.22.56.png
+pnl_data = {
+    'Month': ['Jan', 'Feb', 'Mar'], 
+    'Revenue': [5.896, 4.758, 6.241], 
+    'Expenses': [10.044, 9.127, 8.655]
+}
 df_pnl = pd.DataFrame(pnl_data)
+
+# Dữ liệu từ Cash Flow (CFO)
 cfo_data = {'Category': ['Actual', 'Target'], 'Net Income': [-54.1, -20.0], 'Depreciation': [41.7, 50.0]}
 df_cfo = pd.DataFrame(cfo_data)
 
@@ -24,7 +31,7 @@ df_cfo = pd.DataFrame(cfo_data)
 st.title("🚀 BNM FINANCIAL COMMAND CENTER")
 st.caption("Coffee Division // Global Strategy Dashboard")
 
-# ROW 1: CORE METRICS
+# ROW 1: CORE METRICS (GIỮ TỪ DASHBOARD CŨ)
 m1, m2, m3 = st.columns(3)
 m1.metric("Gross Profit Margin (Mar)", "41.4%", "↑ 2.1%")
 m2.metric("Burn Rate (Avg)", "6.8M VND", "Stable")
@@ -55,7 +62,7 @@ with col_left:
 
 with col_right:
     st.subheader("[02] PEAK_HOUR_DENSITY_3D")
-    # Mô phỏng dữ liệu 3D dựa trên Net CFO thực tế
+    # Mô phỏng dữ liệu 3D dựa trên hiệu suất vận hành thực tế
     z_val = abs(df_cfo.loc[0, 'Net Income'] + df_cfo.loc[0, 'Depreciation'])
     x = np.linspace(0, 20, 80); y = np.linspace(0, 20, 80)
     X, Y = np.meshgrid(x, y)
