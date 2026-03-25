@@ -36,7 +36,7 @@ total_budget = 5.000
 
 # --- 3. SIDEBAR (DỮ LIỆU & QUỸ) ---
 with st.sidebar:
-    st.markdown("# 💰 BNM DATA HUB")
+    st.markdown("# Excel Data")
     st.write("---")
     
     st.subheader("💳 Operating Fund Status")
