@@ -25,12 +25,11 @@ pnl_data = {
 }
 df_pnl = pd.DataFrame(pnl_data)
 
-# ĐÃ FIX: Đổi IMAGE3 thành 'Target'
 cfo_data = {
     'Category': ['Actual', 'Target'], 
     'Depreciation': [41.7, 50.0],
-    'Net Income': [-54.1, -20.0], # Giả định Target lỗ ít hơn
-    'Inventory': [-6.8, -4.0]     # Giả định Target tối ưu kho tốt hơn
+    'Net Income': [-54.1, -20.0],
+    'Inventory': [-6.8, -4.0]
 }
 df_cfo = pd.DataFrame(cfo_data)
 
@@ -50,7 +49,6 @@ with st.sidebar:
 st.header("FINANCIAL REPORT")
 st.caption("Coffee Division Operations // Monthly Target Overview")
 
-# Row 1: Top Metrics
 m1, m2, m3 = st.columns(3)
 m1.metric("Gross Profit Margin (Mar)", "41.4%", "↑ 2.1%")
 m2.metric("Operational Burn Rate", "6.8M VND", "Avg")
@@ -58,7 +56,6 @@ m3.metric("Cash Runway (Target)", "5.1 Months", "🎯 Target")
 
 st.write("---")
 
-# Row 2: Charts
 col_left, col_right = st.columns([1.2, 1])
 
 with col_left:
@@ -78,11 +75,16 @@ with col_left:
 
 with col_right:
     st.subheader("[02] OPERATIONS_EFFICIENCY")
-    x, y = np.linspace(-3, 3, 40), np.linspace(-3, 3, 40)
+    # --- PHẦN TỰ GIÁC CHÈN: 3D GAI GÓC RĂNG CƯA ---
+    x = np.linspace(-4, 4, 60) # Tăng mật độ điểm lên cho nó "sắc"
+    y = np.linspace(-4, 4, 60)
     X, Y = np.meshgrid(x, y)
-    Z = np.sin(np.sqrt(X**2 + Y**2)) + np.random.normal(0, 0.1, X.shape)
+    # Hàm sóng kết hợp nhiễu tạo độ lồi lõm cực mạnh
+    Z = np.sin(X) * np.cos(Y) + np.sin(np.sqrt(X**2 + Y**2)) 
+    Z += np.random.normal(0, 0.2, X.shape) # Bơm thêm "gai"
+    
     fig_3d = go.Figure(data=[go.Surface(z=Z, colorscale='Greys', showscale=False)])
-    fig_3d.update_layout(scene=dict(xaxis_title='X', yaxis_title='Y', zaxis_title='Z'), 
+    fig_3d.update_layout(scene=dict(xaxis_visible=False, yaxis_visible=False, zaxis_visible=False), 
                         margin=dict(l=0, r=0, b=0, t=0), height=700, paper_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_3d, use_container_width=True)
 
