@@ -55,11 +55,11 @@ with st.sidebar:
     st.plotly_chart(fig_fund, use_container_width=True)
     
     st.write("---")
-    st.subheader("📊 P&L Statement")
+    st.subheader("P&L Statement")
     st.dataframe(df_pnl.style.format(precision=3), hide_index=True)
     
     st.write("---")
-    st.subheader("💸 Cash Flow Summary")
+    st.subheader("Cash Flow Summary")
     st.dataframe(df_cfo, hide_index=True)
 
 # --- 4. MAIN CONTENT ---
@@ -75,7 +75,7 @@ m3.metric("Operating Fund", "1.898M", "-3.1M vs Initial", delta_color="inverse")
 st.write("---")
 
 # ROW 2: UNIT ECONOMICS (CÁI NÀY NÃY BỊ MẤT NÈ)
-st.subheader("📊 Unit Economics Analysis")
+st.subheader("Unit Economics Analysis")
 u1, u2, u3, u4 = st.columns(4)
 u1.metric("LTV / CAC Ratio", "3.2x", "Health: Good")
 u2.metric("Daily Break-even", "45 Cups", "🎯 Target")
