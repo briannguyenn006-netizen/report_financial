@@ -63,8 +63,8 @@ with st.sidebar:
     st.dataframe(df_cfo, hide_index=True)
 
 # --- 4. MAIN CONTENT ---
-st.header("🚀 BROKENOMORE (BNM) COMMAND CENTER")
-st.caption("Strategy Optimization // M4 High-Performance Edition")
+st.header("Financial Report")
+st.caption("Strategy Optimization")
 
 # ROW 1: CORE METRICS
 m1, m2, m3 = st.columns(3)
