@@ -78,7 +78,7 @@ st.write("---")
 st.subheader("Unit Economics Analysis")
 u1, u2, u3, u4 = st.columns(4)
 u1.metric("LTV / CAC Ratio", "3.2x", "Health: Good")
-u2.metric("Daily Break-even", "45 Cups", "Target")
+u2.metric("Daily Break-even", "14 Cups", "Target")
 u3.metric("Payback Period", "14 Months", "Est. 2027")
 u4.metric("Avg Order Value", "28K VND", "↑ 5%")
 
